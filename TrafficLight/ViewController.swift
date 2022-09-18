@@ -20,15 +20,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redCircleView.layer.cornerRadius = 65
-        yellowCircleView.layer.cornerRadius = 65
-        greenCircleView.layer.cornerRadius = 65
-        
-        changeColorButton.layer.cornerRadius = 10
+        redCircleView.layer.cornerRadius = redCircleView.frame.width / 2
+        yellowCircleView.layer.cornerRadius = yellowCircleView.frame.width / 2
+        greenCircleView.layer.cornerRadius = greenCircleView.frame.width / 2
         
         redCircleView.alpha = 0.3
         yellowCircleView.alpha = 0.3
         greenCircleView.alpha = 0.3
+        
+        changeColorButton.layer.cornerRadius = 16
     }
 
     @IBAction func changeColorButtonDidTapped() {
