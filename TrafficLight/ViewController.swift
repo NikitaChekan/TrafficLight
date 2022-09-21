@@ -15,45 +15,54 @@ class ViewController: UIViewController {
     
     @IBOutlet var changeColorButton: UIButton!
     
-    private var changeColor = 0
+    private var changeColor = ChangeColor.red
+    
+    private let lightOn: CGFloat = 1
+    private let lightOff: CGFloat = 0.3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        redCircleView.alpha = lightOff
+        yellowCircleView.alpha = lightOff
+        greenCircleView.alpha = lightOff
+        
+        changeColorButton.layer.cornerRadius = 12
+    }
+    
+    override func viewWillLayoutSubviews() {
         redCircleView.layer.cornerRadius = redCircleView.frame.width / 2
         yellowCircleView.layer.cornerRadius = yellowCircleView.frame.width / 2
         greenCircleView.layer.cornerRadius = greenCircleView.frame.width / 2
-        
-        redCircleView.alpha = 0.3
-        yellowCircleView.alpha = 0.3
-        greenCircleView.alpha = 0.3
-        
-        changeColorButton.layer.cornerRadius = 16
     }
 
+    @IBAction func renameButtonDidTapped() {
+        if changeColorButton.currentTitle == "START" {
+            changeColorButton.setTitle("NEXT", for: .normal)
+        }
+    }
+    
     @IBAction func changeColorButtonDidTapped() {
-        changeColorButton.setTitle("NEXT", for: .normal)
         
         switch changeColor {
-        case 0:
-            redCircleView.alpha = 1
-            changeColor += 1
-        case 1:
-            redCircleView.alpha = 0.3
-            yellowCircleView.alpha = 1
-            changeColor += 1
-        case 2:
-            redCircleView.alpha = 0.3
-            yellowCircleView.alpha = 0.3
-            greenCircleView.alpha = 1
-            changeColor += 1
-        case 3:
-            redCircleView.alpha = 1
-            yellowCircleView.alpha = 0.3
-            greenCircleView.alpha = 0.3
-            changeColor = 1
-        default:
-            break
+        case .red:
+            greenCircleView.alpha = lightOff
+            redCircleView.alpha = lightOn
+            changeColor = .yellow
+        case .yellow:
+            redCircleView.alpha = lightOff
+            yellowCircleView.alpha = lightOn
+            changeColor = .green
+        case .green:
+            yellowCircleView.alpha = lightOff
+            greenCircleView.alpha = lightOn
+            changeColor = .red
         }
+    }
+}
+
+extension ViewController {
+    enum ChangeColor {
+        case red, yellow, green
     }
 }
